@@ -1,0 +1,208 @@
+NAME
+    App::osnames - List possible $^O ($OSNAME) values
+
+VERSION
+    version 0.01
+
+SEE ALSO
+    perlvar
+
+    Config
+
+    Devel::Platform::Info
+
+    The output of "perl -V"
+
+AUTHOR
+    Steven Haryanto <stevenharyanto@gmail.com>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2013 by Steven Haryanto.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+
+DESCRIPTION
+FUNCTIONS
+    None are exported by default, but they are exportable.
+
+  list_osnames(%args) -> [status, msg, result, meta]
+    This list might be useful when coding, e.g. when you want to exclude or
+    include certain OS (families) in your application/test.
+
+    Data is in table form. Table fields are as follow:
+
+    -   *value* (ID field)
+
+    -   *tags*
+
+    -   *description*
+
+    Arguments ('*' denotes required arguments):
+
+    *   description => *str*
+
+        Only return records where the 'description' field equals specified
+        value.
+
+    *   description.contains => *str*
+
+        Only return records where the 'description' field contains specified
+        text.
+
+    *   description.in => *array*
+
+        Only return records where the 'description' field is in the
+        specified values.
+
+    *   description.is => *str*
+
+        Only return records where the 'description' field equals specified
+        value.
+
+    *   description.max => *str*
+
+        Only return records where the 'description' field is less than or
+        equal to specified value.
+
+    *   description.min => *array*
+
+        Only return records where the 'description' field is greater than or
+        equal to specified value.
+
+    *   description.not_contains => *str*
+
+        Only return records where the 'description' field does not contain a
+        certain text.
+
+    *   description.not_in => *array*
+
+        Only return records where the 'description' field is not in the
+        specified values.
+
+    *   description.xmax => *str*
+
+        Only return records where the 'description' field is less than
+        specified value.
+
+    *   description.xmin => *array*
+
+        Only return records where the 'description' field is greater than
+        specified value.
+
+    *   detail => *bool* (default: 0)
+
+        Return array of full records instead of just ID fields.
+
+        By default, only the key (ID) field is returned per result entry.
+
+    *   fields => *array*
+
+        Select fields to return.
+
+    *   q => *str*
+
+        Search.
+
+    *   random => *bool* (default: 0)
+
+        Return records in random order.
+
+    *   result_limit => *int*
+
+        Only return a certain number of records.
+
+    *   result_start => *int* (default: 1)
+
+        Only return starting from the n'th record.
+
+    *   sort => *str*
+
+        Order records according to certain field(s).
+
+        A list of field names separated by comma. Each field can be prefixed
+        with '-' to specify descending order instead of the default
+        ascending.
+
+    *   tags => *array*
+
+        Only return records where the 'tags' field equals specified value.
+
+    *   tags.has => *array*
+
+        Only return records where the 'tags' field is an array/list which
+        contains specified value.
+
+    *   tags.is => *array*
+
+        Only return records where the 'tags' field equals specified value.
+
+    *   tags.lacks => *array*
+
+        Only return records where the 'tags' field is an array/list which
+        does not contain specified value.
+
+    *   value => *str*
+
+        Only return records where the 'value' field equals specified value.
+
+    *   value.contains => *str*
+
+        Only return records where the 'value' field contains specified text.
+
+    *   value.in => *array*
+
+        Only return records where the 'value' field is in the specified
+        values.
+
+    *   value.is => *str*
+
+        Only return records where the 'value' field equals specified value.
+
+    *   value.max => *str*
+
+        Only return records where the 'value' field is less than or equal to
+        specified value.
+
+    *   value.min => *array*
+
+        Only return records where the 'value' field is greater than or equal
+        to specified value.
+
+    *   value.not_contains => *str*
+
+        Only return records where the 'value' field does not contain a
+        certain text.
+
+    *   value.not_in => *array*
+
+        Only return records where the 'value' field is not in the specified
+        values.
+
+    *   value.xmax => *str*
+
+        Only return records where the 'value' field is less than specified
+        value.
+
+    *   value.xmin => *array*
+
+        Only return records where the 'value' field is greater than
+        specified value.
+
+    *   with_field_names => *bool*
+
+        Return field names in each record (as hash/associative array).
+
+        When enabled, function will return each record as hash/associative
+        array (field name => value pairs). Otherwise, function will return
+        each record as list/array (field value, field value, ...).
+
+    Return value:
+
+    Returns an enveloped result (an array). First element (status) is an
+    integer containing HTTP status code (200 means OK, 4xx caller error, 5xx
+    function error). Second element (msg) is a string containing error
+    message, or 'OK' if status is 200. Third element (result) is optional,
+    the actual result. Fourth element (meta) is called result metadata and
+    is optional, a hash that contains extra information.
+

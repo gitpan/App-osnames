@@ -1,0 +1,24 @@
+---
+abstract: 'List possible $^O ($OSNAME) values'
+author:
+  - 'Steven Haryanto <stevenharyanto@gmail.com>'
+build_requires: {}
+configure_requires:
+  ExtUtils::MakeMaker: 6.30
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.300035, CPAN::Meta::Converter version 2.131560'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: App-osnames
+requires:
+  Data::Unixish: 1.25
+  Perinci::CmdLine: 0.68
+  Perinci::Sub::Gen::AccessTable: 0
+  Perinci::Sub::Wrapper: 0.40
+  perl: 5.010001
+resources:
+  homepage: http://metacpan.org/release/App-osnames
+  repository: http://github.com/sharyanto/perl-App-osnames
+version: 0.01
