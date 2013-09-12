@@ -2,7 +2,7 @@ NAME
     App::osnames - List possible $^O ($OSNAME) values
 
 VERSION
-    version 0.01
+    version 0.02
 
 SEE ALSO
     perlvar

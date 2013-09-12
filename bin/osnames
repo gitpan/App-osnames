@@ -5,9 +5,16 @@ use strict;
 use warnings;
 use Perinci::CmdLine 0.68;
 
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
 our %SPEC;
+
+# add -V as the alias for --detail, for convenience
+require App::osnames;
+{
+    no warnings;
+    $App::osnames::SPEC{list_osnames}{args}{detail}{cmdline_aliases} = {V=>{}};
+}
 
 Perinci::CmdLine->new(url => '/App/osnames/list_osnames')->run;
 
@@ -27,12 +34,12 @@ osnames - List possible Perl $^O ($OSNAME) values
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 SYNOPSIS
 
  % osnames
- % osnames --detail
+ % osnames --detail; # or, -V
 
 =head1 FAQ
 

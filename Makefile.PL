@@ -24,11 +24,16 @@ my %WriteMakefileArgs = (
   "PREREQ_PM" => {
     "Data::Unixish" => "1.25",
     "Perinci::CmdLine" => "0.68",
-    "Perinci::Sub::Gen::AccessTable" => 0,
+    "Perinci::Sub::Gen::AccessTable" => "0.23",
     "Perinci::Sub::Wrapper" => "0.40"
   },
-  "TEST_REQUIRES" => {},
-  "VERSION" => "0.01",
+  "TEST_REQUIRES" => {
+    "Capture::Tiny" => 0,
+    "Test::More" => "0.88",
+    "Test::Script" => "1.05",
+    "blib" => 0
+  },
+  "VERSION" => "0.02",
   "test" => {
     "TESTS" => "t/*.t"
   }

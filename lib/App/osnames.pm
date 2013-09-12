@@ -4,7 +4,7 @@ use 5.010001;
 use strict;
 use warnings;
 
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
 our $data = [
 
@@ -77,7 +77,7 @@ for (@$data) {
 #use Data::Dump::Color;
 #dd $data;
 
-use Perinci::Sub::Gen::AccessTable qw(gen_read_table_func);
+use Perinci::Sub::Gen::AccessTable 0.23 qw(gen_read_table_func);
 
 my $res = gen_read_table_func(
     name       => 'list_osnames',
@@ -128,7 +128,7 @@ App::osnames - List possible $^O ($OSNAME) values
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 SEE ALSO
 
