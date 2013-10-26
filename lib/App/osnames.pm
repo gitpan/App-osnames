@@ -4,7 +4,9 @@ use 5.010001;
 use strict;
 use warnings;
 
-our $VERSION = '0.02'; # VERSION
+our $VERSION = '0.03'; # VERSION
+
+our %SPEC;
 
 our $data = [
 
@@ -113,6 +115,22 @@ _
 die "Can't generate list_osnames function: $res->[0] - $res->[1]"
     unless $res->[0] == 200;
 
+$SPEC{list_osnames}{args}{q}{pos} = 0;
+$SPEC{list_osnames}{examples} = [
+    {
+        argv    => [qw/ux/],
+        summary => 'String search',
+    },
+    {
+        argv    => [qw/--tags-has unix --detail/],
+        summary => 'List Unices',
+    },
+    {
+        argv    => [qw/--tags-lacks unix --detail/],
+        summary => 'List non-Unices',
+    },
+];
+
 1;
 # ABSTRACT: List possible $^O ($OSNAME) values
 
@@ -126,39 +144,20 @@ __END__
 
 App::osnames - List possible $^O ($OSNAME) values
 
-=head1 VERSION
-
-version 0.02
-
-=head1 SEE ALSO
-
-L<perlvar>
-
-L<Config>
-
-L<Devel::Platform::Info>
-
-The output of C<perl -V>
-
-=head1 AUTHOR
-
-Steven Haryanto <stevenharyanto@gmail.com>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2013 by Steven Haryanto.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
-=head1 DESCRIPTION
-
 =head1 FUNCTIONS
 
 
-None are exported by default, but they are exportable.
-
 =head2 list_osnames(%args) -> [status, msg, result, meta]
+
+A collection of possible $^O ($OSNAME) values, along with description.
+
+Examples:
+
+ list_osnames(q => "ux");
+
+ list_osnames("detail" => 1, "tags.has" => ["unix"]);
+
+ list_osnames("detail" => 1, "tags.lacks" => ["unix"]);
 
 This list might be useful when coding, e.g. when you want to exclude or include
 certain OS (families) in your application/test.
@@ -211,7 +210,7 @@ Only return records where the 'description' field equals specified value.
 
 Only return records where the 'description' field is less than or equal to specified value.
 
-=item * B<description.min> => I<array>
+=item * B<description.min> => I<str>
 
 Only return records where the 'description' field is greater than or equal to specified value.
 
@@ -227,7 +226,7 @@ Only return records where the 'description' field is not in the specified values
 
 Only return records where the 'description' field is less than specified value.
 
-=item * B<description.xmin> => I<array>
+=item * B<description.xmin> => I<str>
 
 Only return records where the 'description' field is greater than specified value.
 
@@ -300,7 +299,7 @@ Only return records where the 'value' field equals specified value.
 
 Only return records where the 'value' field is less than or equal to specified value.
 
-=item * B<value.min> => I<array>
+=item * B<value.min> => I<str>
 
 Only return records where the 'value' field is greater than or equal to specified value.
 
@@ -316,7 +315,7 @@ Only return records where the 'value' field is not in the specified values.
 
 Only return records where the 'value' field is less than specified value.
 
-=item * B<value.xmin> => I<array>
+=item * B<value.xmin> => I<str>
 
 Only return records where the 'value' field is greater than specified value.
 
@@ -333,5 +332,43 @@ as list/array (field value, field value, ...).
 Return value:
 
 Returns an enveloped result (an array). First element (status) is an integer containing HTTP status code (200 means OK, 4xx caller error, 5xx function error). Second element (msg) is a string containing error message, or 'OK' if status is 200. Third element (result) is optional, the actual result. Fourth element (meta) is called result metadata and is optional, a hash that contains extra information.
+
+=head1 SEE ALSO
+
+L<perlvar>
+
+L<Config>
+
+L<Devel::Platform::Info>
+
+The output of C<perl -V>
+
+=head1 HOMEPAGE
+
+Please visit the project's homepage at L<https://metacpan.org/release/App-osnames>.
+
+=head1 SOURCE
+
+Source repository is at L<https://github.com/sharyanto/perl-App-osnames>.
+
+=head1 BUGS
+
+Please report any bugs or feature requests on the bugtracker website
+http://rt.cpan.org/Public/Dist/Display.html?Name=App-osnames
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
+
+=head1 AUTHOR
+
+Steven Haryanto <stevenharyanto@gmail.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2013 by Steven Haryanto.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut

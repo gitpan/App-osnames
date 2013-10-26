@@ -1,32 +1,18 @@
 NAME
     App::osnames - List possible $^O ($OSNAME) values
 
-VERSION
-    version 0.02
-
-SEE ALSO
-    perlvar
-
-    Config
-
-    Devel::Platform::Info
-
-    The output of "perl -V"
-
-AUTHOR
-    Steven Haryanto <stevenharyanto@gmail.com>
-
-COPYRIGHT AND LICENSE
-    This software is copyright (c) 2013 by Steven Haryanto.
-
-    This is free software; you can redistribute it and/or modify it under
-    the same terms as the Perl 5 programming language system itself.
-
-DESCRIPTION
 FUNCTIONS
-    None are exported by default, but they are exportable.
-
   list_osnames(%args) -> [status, msg, result, meta]
+    A collection of possible $^O ($OSNAME) values, along with description.
+
+    Examples:
+
+     list_osnames(q => "ux");
+
+     list_osnames("detail" => 1, "tags.has" => ["unix"]);
+
+     list_osnames("detail" => 1, "tags.lacks" => ["unix"]);
+
     This list might be useful when coding, e.g. when you want to exclude or
     include certain OS (families) in your application/test.
 
@@ -65,7 +51,7 @@ FUNCTIONS
         Only return records where the 'description' field is less than or
         equal to specified value.
 
-    *   description.min => *array*
+    *   description.min => *str*
 
         Only return records where the 'description' field is greater than or
         equal to specified value.
@@ -85,7 +71,7 @@ FUNCTIONS
         Only return records where the 'description' field is less than
         specified value.
 
-    *   description.xmin => *array*
+    *   description.xmin => *str*
 
         Only return records where the 'description' field is greater than
         specified value.
@@ -164,7 +150,7 @@ FUNCTIONS
         Only return records where the 'value' field is less than or equal to
         specified value.
 
-    *   value.min => *array*
+    *   value.min => *str*
 
         Only return records where the 'value' field is greater than or equal
         to specified value.
@@ -184,7 +170,7 @@ FUNCTIONS
         Only return records where the 'value' field is less than specified
         value.
 
-    *   value.xmin => *array*
+    *   value.xmin => *str*
 
         Only return records where the 'value' field is greater than
         specified value.
@@ -205,4 +191,36 @@ FUNCTIONS
     message, or 'OK' if status is 200. Third element (result) is optional,
     the actual result. Fourth element (meta) is called result metadata and
     is optional, a hash that contains extra information.
+
+SEE ALSO
+    perlvar
+
+    Config
+
+    Devel::Platform::Info
+
+    The output of "perl -V"
+
+HOMEPAGE
+    Please visit the project's homepage at
+    <https://metacpan.org/release/App-osnames>.
+
+SOURCE
+    Source repository is at <https://github.com/sharyanto/perl-App-osnames>.
+
+BUGS
+    Please report any bugs or feature requests on the bugtracker website
+    http://rt.cpan.org/Public/Dist/Display.html?Name=App-osnames
+
+    When submitting a bug or request, please include a test-file or a patch
+    to an existing test-file that illustrates the bug or desired feature.
+
+AUTHOR
+    Steven Haryanto <stevenharyanto@gmail.com>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2013 by Steven Haryanto.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
 

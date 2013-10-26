@@ -5,7 +5,7 @@ use strict;
 use warnings;
 use Perinci::CmdLine 0.68;
 
-our $VERSION = '0.02'; # VERSION
+our $VERSION = '0.03'; # VERSION
 
 our %SPEC;
 
@@ -32,10 +32,6 @@ __END__
 
 osnames - List possible Perl $^O ($OSNAME) values
 
-=head1 VERSION
-
-version 0.02
-
 =head1 SYNOPSIS
 
  % osnames
@@ -55,6 +51,23 @@ command-line interface for it.
 =head1 SEE ALSO
 
 L<perlvar>
+
+=head1 HOMEPAGE
+
+Please visit the project's homepage at L<https://metacpan.org/release/App-osnames>.
+
+=head1 SOURCE
+
+Source repository is at L<https://github.com/sharyanto/perl-App-osnames>.
+
+=head1 BUGS
+
+Please report any bugs or feature requests on the bugtracker website
+http://rt.cpan.org/Public/Dist/Display.html?Name=App-osnames
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
 
 =head1 AUTHOR
 
