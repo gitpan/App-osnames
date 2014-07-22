@@ -4,7 +4,7 @@ use 5.010001;
 use strict;
 use warnings;
 
-our $VERSION = '0.03'; # VERSION
+our $VERSION = '0.04'; # VERSION
 
 our %SPEC;
 
@@ -79,7 +79,7 @@ for (@$data) {
 #use Data::Dump::Color;
 #dd $data;
 
-use Perinci::Sub::Gen::AccessTable 0.23 qw(gen_read_table_func);
+use Perinci::Sub::Gen::AccessTable qw(gen_read_table_func);
 
 my $res = gen_read_table_func(
     name       => 'list_osnames',
@@ -111,6 +111,8 @@ _
         },
         pk => 'value',
     },
+    enable_paging => 0, # there are only a handful of rows
+    enable_random_ordering => 0,
 );
 die "Can't generate list_osnames function: $res->[0] - $res->[1]"
     unless $res->[0] == 200;
@@ -138,11 +140,15 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 
 App::osnames - List possible $^O ($OSNAME) values
+
+=head1 VERSION
+
+This document describes version 0.04 of App::osnames (from Perl distribution App-osnames), released on 2014-07-22.
 
 =head1 FUNCTIONS
 
@@ -153,38 +159,26 @@ A collection of possible $^O ($OSNAME) values, along with description.
 
 Examples:
 
- list_osnames(q => "ux");
+ list_osnames( q => "ux");
 
- list_osnames("detail" => 1, "tags.has" => ["unix"]);
 
- list_osnames("detail" => 1, "tags.lacks" => ["unix"]);
+String search.
+
+
+ list_osnames( "detail" => 1, "tags.has" => ["unix"]);
+
+
+List Unices.
+
+
+ list_osnames( "detail" => 1, "tags.lacks" => ["unix"]);
+
+
+List non-Unices.
+
 
 This list might be useful when coding, e.g. when you want to exclude or include
 certain OS (families) in your application/test.
-
-Data is in table form. Table fields are as follow:
-
-=over
-
-=item -
-
-I<value> (ID field)
-
-
-
-=item -
-
-I<tags>
-
-
-
-=item -
-
-I<description>
-
-
-
-=back
 
 Arguments ('*' denotes required arguments):
 
@@ -206,6 +200,10 @@ Only return records where the 'description' field is in the specified values.
 
 Only return records where the 'description' field equals specified value.
 
+=item * B<description.isnt> => I<str>
+
+Only return records where the 'description' field does not equal specified value.
+
 =item * B<description.max> => I<str>
 
 Only return records where the 'description' field is less than or equal to specified value.
@@ -216,7 +214,7 @@ Only return records where the 'description' field is greater than or equal to sp
 
 =item * B<description.not_contains> => I<str>
 
-Only return records where the 'description' field does not contain a certain text.
+Only return records where the 'description' field does not contain specified text.
 
 =item * B<description.not_in> => I<array>
 
@@ -244,18 +242,6 @@ Select fields to return.
 
 Search.
 
-=item * B<random> => I<bool> (default: 0)
-
-Return records in random order.
-
-=item * B<result_limit> => I<int>
-
-Only return a certain number of records.
-
-=item * B<result_start> => I<int> (default: 1)
-
-Only return starting from the n'th record.
-
 =item * B<sort> => I<str>
 
 Order records according to certain field(s).
@@ -274,6 +260,10 @@ Only return records where the 'tags' field is an array/list which contains speci
 =item * B<tags.is> => I<array>
 
 Only return records where the 'tags' field equals specified value.
+
+=item * B<tags.isnt> => I<array>
+
+Only return records where the 'tags' field does not equal specified value.
 
 =item * B<tags.lacks> => I<array>
 
@@ -295,6 +285,10 @@ Only return records where the 'value' field is in the specified values.
 
 Only return records where the 'value' field equals specified value.
 
+=item * B<value.isnt> => I<str>
+
+Only return records where the 'value' field does not equal specified value.
+
 =item * B<value.max> => I<str>
 
 Only return records where the 'value' field is less than or equal to specified value.
@@ -305,7 +299,7 @@ Only return records where the 'value' field is greater than or equal to specifie
 
 =item * B<value.not_contains> => I<str>
 
-Only return records where the 'value' field does not contain a certain text.
+Only return records where the 'value' field does not contain specified text.
 
 =item * B<value.not_in> => I<array>
 
@@ -331,7 +325,16 @@ as list/array (field value, field value, ...).
 
 Return value:
 
-Returns an enveloped result (an array). First element (status) is an integer containing HTTP status code (200 means OK, 4xx caller error, 5xx function error). Second element (msg) is a string containing error message, or 'OK' if status is 200. Third element (result) is optional, the actual result. Fourth element (meta) is called result metadata and is optional, a hash that contains extra information.
+Returns an enveloped result (an array).
+
+First element (status) is an integer containing HTTP status code
+(200 means OK, 4xx caller error, 5xx function error). Second element
+(msg) is a string containing error message, or 'OK' if status is
+200. Third element (result) is optional, the actual result. Fourth
+element (meta) is called result metadata and is optional, a hash
+that contains extra information.
+
+ (any)
 
 =head1 SEE ALSO
 
@@ -353,8 +356,7 @@ Source repository is at L<https://github.com/sharyanto/perl-App-osnames>.
 
 =head1 BUGS
 
-Please report any bugs or feature requests on the bugtracker website
-http://rt.cpan.org/Public/Dist/Display.html?Name=App-osnames
+Please report any bugs or feature requests on the bugtracker website L<https://rt.cpan.org/Public/Dist/Display.html?Name=App-osnames>
 
 When submitting a bug or request, please include a test-file or a
 patch to an existing test-file that illustrates the bug or desired
@@ -366,7 +368,7 @@ Steven Haryanto <stevenharyanto@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Steven Haryanto.
+This software is copyright (c) 2014 by Steven Haryanto.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

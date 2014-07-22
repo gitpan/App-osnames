@@ -1,11 +1,12 @@
-#!/usr/bin/perl
+#!perl
 
 use 5.010001;
 use strict;
 use warnings;
-use Perinci::CmdLine 0.68;
+use Perinci::CmdLine::Any;
 
-our $VERSION = '0.03'; # VERSION
+our $DATE = '2014-07-22'; # DATE
+our $VERSION = '0.04'; # VERSION
 
 our %SPEC;
 
@@ -16,7 +17,10 @@ require App::osnames;
     $App::osnames::SPEC{list_osnames}{args}{detail}{cmdline_aliases} = {V=>{}};
 }
 
-Perinci::CmdLine->new(url => '/App/osnames/list_osnames')->run;
+Perinci::CmdLine::Any->new(
+    log_any_app => 0,
+    url => '/App/osnames/list_osnames',
+)->run;
 
 1;
 # ABSTRACT: List possible Perl $^O ($OSNAME) values
@@ -26,27 +30,20 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 
 osnames - List possible Perl $^O ($OSNAME) values
 
+=head1 VERSION
+
+This document describes version 0.04 of osnames (from Perl distribution App-osnames), released on 2014-07-22.
+
 =head1 SYNOPSIS
 
  % osnames
  % osnames --detail; # or, -V
-
-=head1 FAQ
-
-=head2 Lots of dependencies?
-
-Yup, sorry about that. I use L<Perinci::CmdLine> and
-L<Perinci::Sub::Gen::AccessTable> for convenience, where I just specify a data
-structure and let the aforementioned modules generate an access function and
-command-line interface for it.
-
-=head1 TODO
 
 =head1 SEE ALSO
 
@@ -62,8 +59,7 @@ Source repository is at L<https://github.com/sharyanto/perl-App-osnames>.
 
 =head1 BUGS
 
-Please report any bugs or feature requests on the bugtracker website
-http://rt.cpan.org/Public/Dist/Display.html?Name=App-osnames
+Please report any bugs or feature requests on the bugtracker website L<https://rt.cpan.org/Public/Dist/Display.html?Name=App-osnames>
 
 When submitting a bug or request, please include a test-file or a
 patch to an existing test-file that illustrates the bug or desired
@@ -75,7 +71,7 @@ Steven Haryanto <stevenharyanto@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Steven Haryanto.
+This software is copyright (c) 2014 by Steven Haryanto.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
