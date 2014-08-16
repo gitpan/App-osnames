@@ -2,8 +2,8 @@ NAME
     App::osnames - List possible $^O ($OSNAME) values
 
 VERSION
-    This document describes version 0.04 of App::osnames (from Perl
-    distribution App-osnames), released on 2014-07-22.
+    This document describes version 0.05 of App::osnames (from Perl
+    distribution App-osnames), released on 2014-08-16.
 
 FUNCTIONS
   list_osnames(%args) -> [status, msg, result, meta]

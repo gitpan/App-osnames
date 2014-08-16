@@ -1,29 +1,26 @@
 #!perl
 
+# Note: This script is a CLI interface to Riap function /App/osnames/list_osnames
+# and generated automatically using Dist::Zilla::Plugin::Rinci::ScriptFromFunc version 0.01
+
+our $DATE = '2014-08-16'; # DATE
+our $VERSION = '0.05'; # VERSION
+
 use 5.010001;
 use strict;
 use warnings;
+
 use Perinci::CmdLine::Any;
 
-our $DATE = '2014-07-22'; # DATE
-our $VERSION = '0.04'; # VERSION
-
-our %SPEC;
-
-# add -V as the alias for --detail, for convenience
-require App::osnames;
-{
-    no warnings;
-    $App::osnames::SPEC{list_osnames}{args}{detail}{cmdline_aliases} = {V=>{}};
-}
+# snippet_before_instantiate_cmdline
+require App::osnames; { no warnings; $App::osnames::SPEC{list_osnames}{args}{detail}{cmdline_aliases} = {V=>{}} }; # convenience
 
 Perinci::CmdLine::Any->new(
+    url => "/App/osnames/list_osnames",
     log_any_app => 0,
-    url => '/App/osnames/list_osnames',
 )->run;
 
-1;
-# ABSTRACT: List possible Perl $^O ($OSNAME) values
+# ABSTRACT: A collection of possible $^O ($OSNAME) values, along with description
 # PODNAME: osnames
 
 __END__
@@ -34,20 +31,34 @@ __END__
 
 =head1 NAME
 
-osnames - List possible Perl $^O ($OSNAME) values
+osnames - A collection of possible $^O ($OSNAME) values, along with description
 
 =head1 VERSION
 
-This document describes version 0.04 of osnames (from Perl distribution App-osnames), released on 2014-07-22.
+This document describes version 0.05 of osnames (from Perl distribution App-osnames), released on 2014-08-16.
 
 =head1 SYNOPSIS
 
+Usage:
+
  % osnames
- % osnames --detail; # or, -V
 
-=head1 SEE ALSO
+Examples:
 
-L<perlvar>
+ TODO
+
+To see all options:
+
+ % osnames --help
+
+=head1 DESCRIPTION
+
+This list might be useful when coding, e.g. when you want to exclude or include
+certain OS (families) in your application/test.
+
+=head1 OPTIONS
+
+ TODO
 
 =head1 HOMEPAGE
 

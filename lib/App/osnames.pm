@@ -4,7 +4,7 @@ use 5.010001;
 use strict;
 use warnings;
 
-our $VERSION = '0.04'; # VERSION
+our $VERSION = '0.05'; # VERSION
 
 our %SPEC;
 
@@ -148,7 +148,7 @@ App::osnames - List possible $^O ($OSNAME) values
 
 =head1 VERSION
 
-This document describes version 0.04 of App::osnames (from Perl distribution App-osnames), released on 2014-07-22.
+This document describes version 0.05 of App::osnames (from Perl distribution App-osnames), released on 2014-08-16.
 
 =head1 FUNCTIONS
 

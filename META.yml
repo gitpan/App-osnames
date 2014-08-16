@@ -18,7 +18,7 @@ meta-spec:
 name: App-osnames
 requires:
   Data::Unixish: '1.25'
-  Perinci::CmdLine::Any: '0'
+  Perinci::CmdLine::Any: '0.06'
   Perinci::Sub::Gen::AccessTable: '0.38'
   Rinci: v1.1.0
   perl: '5.010001'
@@ -26,11 +26,15 @@ resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=App-osnames
   homepage: https://metacpan.org/release/App-osnames
   repository: git://github.com/sharyanto/perl-App-osnames.git
-version: '0.04'
+version: '0.05'
 x_Dist_Zilla:
   perl:
     version: '5.018001'
   plugins:
+    -
+      class: Dist::Zilla::Plugin::Rinci::ScriptFromFunc
+      name: Rinci::ScriptFromFunc
+      version: '0.01'
     -
       class: Dist::Zilla::Plugin::GatherDir
       name: '@Author::SHARYANTO/@Filter/GatherDir'
