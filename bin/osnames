@@ -4,7 +4,7 @@
 # and generated automatically using Dist::Zilla::Plugin::Rinci::ScriptFromFunc version 0.03
 
 our $DATE = '2014-12-18'; # DATE
-our $VERSION = '0.06'; # VERSION
+our $VERSION = '0.07'; # VERSION
 
 use 5.010001;
 use strict;
@@ -34,7 +34,7 @@ osnames - List possible $^O ($OSNAME) values, with description
 
 =head1 VERSION
 
-This document describes version 0.06 of osnames (from Perl distribution App-osnames), released on 2014-12-18.
+This document describes version 0.07 of osnames (from Perl distribution App-osnames), released on 2014-12-18.
 
 =head1 SYNOPSIS
 

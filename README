@@ -2,7 +2,7 @@ NAME
     App::osnames - List possible $^O ($OSNAME) values, with description
 
 VERSION
-    This document describes version 0.06 of App::osnames (from Perl
+    This document describes version 0.07 of App::osnames (from Perl
     distribution App-osnames), released on 2014-12-18.
 
 FUNCTIONS
@@ -201,36 +201,8 @@ FUNCTIONS
 
      (any)
 
-TAGS
-    *   unix
-
-        Unix-like operating systems. This currently excludes beos/haiku.
-
-    *   bsd
-
-        BSD-derived Unix operating systems.
-
-    *   sysv
-
-        SysV-derived Unix operating systems.
-
-    *   posix
-
-        For POSIX-compliant OSes, including fully-, mostly-, and
-        largely-compliant ones (source:
-        <http://en.wikipedia.org/wiki/POSIX>).
-
-        From what I can gather, dec_osf is not POSIX compliant, although
-        there is a posix package for it.
-
 SEE ALSO
-    perlvar
-
-    Config
-
-    Devel::Platform::Info
-
-    The output of "perl -V"
+    Perl::osnames
 
 HOMEPAGE
     Please visit the project's homepage at

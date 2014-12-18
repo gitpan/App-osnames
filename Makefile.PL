@@ -26,6 +26,7 @@ my %WriteMakefileArgs = (
     "Data::Unixish" => "1.25",
     "Perinci::CmdLine::Any" => "0.06",
     "Perinci::Sub::Gen::AccessTable" => "0.38",
+    "Perl::osnames" => "0.07",
     "Rinci" => "1.1.0"
   },
   "TEST_REQUIRES" => {
@@ -34,7 +35,7 @@ my %WriteMakefileArgs = (
     "IPC::Open3" => 0,
     "Test::More" => 0
   },
-  "VERSION" => "0.06",
+  "VERSION" => "0.07",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -49,6 +50,7 @@ my %FallbackPrereqs = (
   "IPC::Open3" => 0,
   "Perinci::CmdLine::Any" => "0.06",
   "Perinci::Sub::Gen::AccessTable" => "0.38",
+  "Perl::osnames" => "0.07",
   "Rinci" => "1.1.0",
   "Test::More" => 0
 );
