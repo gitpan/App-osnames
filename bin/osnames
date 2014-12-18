@@ -1,10 +1,10 @@
 #!perl
 
 # Note: This script is a CLI interface to Riap function /App/osnames/list_osnames
-# and generated automatically using Dist::Zilla::Plugin::Rinci::ScriptFromFunc version 0.01
+# and generated automatically using Dist::Zilla::Plugin::Rinci::ScriptFromFunc version 0.03
 
-our $DATE = '2014-08-16'; # DATE
-our $VERSION = '0.05'; # VERSION
+our $DATE = '2014-12-18'; # DATE
+our $VERSION = '0.06'; # VERSION
 
 use 5.010001;
 use strict;
@@ -17,10 +17,9 @@ require App::osnames; { no warnings; $App::osnames::SPEC{list_osnames}{args}{det
 
 Perinci::CmdLine::Any->new(
     url => "/App/osnames/list_osnames",
-    log_any_app => 0,
 )->run;
 
-# ABSTRACT: A collection of possible $^O ($OSNAME) values, along with description
+# ABSTRACT: List possible $^O ($OSNAME) values, with description
 # PODNAME: osnames
 
 __END__
@@ -31,25 +30,31 @@ __END__
 
 =head1 NAME
 
-osnames - A collection of possible $^O ($OSNAME) values, along with description
+osnames - List possible $^O ($OSNAME) values, with description
 
 =head1 VERSION
 
-This document describes version 0.05 of osnames (from Perl distribution App-osnames), released on 2014-08-16.
+This document describes version 0.06 of osnames (from Perl distribution App-osnames), released on 2014-12-18.
 
 =head1 SYNOPSIS
 
 Usage:
 
- % osnames
+ % osnames [options] [q]
 
 Examples:
 
- TODO
+String search:
 
-To see all options:
+ % osnames ux
 
- % osnames --help
+List Unices:
+
+ % osnames --tags-has unix --detail
+
+List non-Unices:
+
+ % osnames --tags-lacks unix --detail
 
 =head1 DESCRIPTION
 
@@ -58,7 +63,519 @@ certain OS (families) in your application/test.
 
 =head1 OPTIONS
 
- TODO
+C<*> marks required options.
+
+=head2 Field-selection options
+
+=over
+
+=item B<--detail>
+
+Return array of full records instead of just ID fields.
+
+By default, only the key (ID) field is returned per result entry.
+
+
+=item B<--fields-json>=I<s>
+
+Select fields to return (JSON-encoded).
+
+See C<--fields>.
+
+=item B<--fields-yaml>=I<s>
+
+Select fields to return (YAML-encoded).
+
+See C<--fields>.
+
+=item B<--fields>=I<s@>
+
+Select fields to return.
+
+Default value:
+
+ undef
+
+Can be specified multiple times.
+
+=item B<--with-field-names>
+
+Return field names in each record (as hash/associative array).
+
+When enabled, function will return each record as hash/associative array
+(field name => value pairs). Otherwise, function will return each record
+as list/array (field value, field value, ...).
+
+
+=back
+
+=head2 Filtering options
+
+=over
+
+=item B<-q>=I<s>
+
+Search.
+
+Default value:
+
+ undef
+
+=back
+
+=head2 Filtering-for-description options
+
+=over
+
+=item B<--description-contains>=I<s>
+
+Only return records where the 'description' field contains specified text.
+
+Default value:
+
+ undef
+
+=item B<--description-in-json>=I<s>
+
+Only return records where the 'description' field is in the specified values (JSON-encoded).
+
+See C<--description-in>.
+
+=item B<--description-in-yaml>=I<s>
+
+Only return records where the 'description' field is in the specified values (YAML-encoded).
+
+See C<--description-in>.
+
+=item B<--description-in>=I<s@>
+
+Only return records where the 'description' field is in the specified values.
+
+Default value:
+
+ undef
+
+Can be specified multiple times.
+
+=item B<--description-is>=I<s>
+
+Only return records where the 'description' field equals specified value.
+
+Default value:
+
+ undef
+
+=item B<--description-isnt>=I<s>
+
+Only return records where the 'description' field does not equal specified value.
+
+Default value:
+
+ undef
+
+=item B<--description-max>=I<s>
+
+Only return records where the 'description' field is less than or equal to specified value.
+
+Default value:
+
+ undef
+
+=item B<--description-min>=I<s>
+
+Only return records where the 'description' field is greater than or equal to specified value.
+
+Default value:
+
+ undef
+
+=item B<--description-not-contains>=I<s>
+
+Only return records where the 'description' field does not contain specified text.
+
+Default value:
+
+ undef
+
+=item B<--description-not-in-json>=I<s>
+
+Only return records where the 'description' field is not in the specified values (JSON-encoded).
+
+See C<--description-not-in>.
+
+=item B<--description-not-in-yaml>=I<s>
+
+Only return records where the 'description' field is not in the specified values (YAML-encoded).
+
+See C<--description-not-in>.
+
+=item B<--description-not-in>=I<s@>
+
+Only return records where the 'description' field is not in the specified values.
+
+Default value:
+
+ undef
+
+Can be specified multiple times.
+
+=item B<--description-xmax>=I<s>
+
+Only return records where the 'description' field is less than specified value.
+
+Default value:
+
+ undef
+
+=item B<--description-xmin>=I<s>
+
+Only return records where the 'description' field is greater than specified value.
+
+Default value:
+
+ undef
+
+=item B<--description>=I<s>
+
+Only return records where the 'description' field equals specified value.
+
+Default value:
+
+ undef
+
+=back
+
+=head2 Filtering-for-tags options
+
+=over
+
+=item B<--tags-has-json>=I<s>
+
+Only return records where the 'tags' field is an array/list which contains specified value (JSON-encoded).
+
+See C<--tags-has>.
+
+=item B<--tags-has-yaml>=I<s>
+
+Only return records where the 'tags' field is an array/list which contains specified value (YAML-encoded).
+
+See C<--tags-has>.
+
+=item B<--tags-has>=I<s@>
+
+Only return records where the 'tags' field is an array/list which contains specified value.
+
+Default value:
+
+ undef
+
+Can be specified multiple times.
+
+=item B<--tags-is-json>=I<s>
+
+Only return records where the 'tags' field equals specified value (JSON-encoded).
+
+See C<--tags-is>.
+
+=item B<--tags-is-yaml>=I<s>
+
+Only return records where the 'tags' field equals specified value (YAML-encoded).
+
+See C<--tags-is>.
+
+=item B<--tags-is>=I<s>
+
+Only return records where the 'tags' field equals specified value.
+
+Default value:
+
+ undef
+
+=item B<--tags-isnt-json>=I<s>
+
+Only return records where the 'tags' field does not equal specified value (JSON-encoded).
+
+See C<--tags-isnt>.
+
+=item B<--tags-isnt-yaml>=I<s>
+
+Only return records where the 'tags' field does not equal specified value (YAML-encoded).
+
+See C<--tags-isnt>.
+
+=item B<--tags-isnt>=I<s>
+
+Only return records where the 'tags' field does not equal specified value.
+
+Default value:
+
+ undef
+
+=item B<--tags-json>=I<s>
+
+Only return records where the 'tags' field equals specified value (JSON-encoded).
+
+See C<--tags>.
+
+=item B<--tags-lacks-json>=I<s>
+
+Only return records where the 'tags' field is an array/list which does not contain specified value (JSON-encoded).
+
+See C<--tags-lacks>.
+
+=item B<--tags-lacks-yaml>=I<s>
+
+Only return records where the 'tags' field is an array/list which does not contain specified value (YAML-encoded).
+
+See C<--tags-lacks>.
+
+=item B<--tags-lacks>=I<s@>
+
+Only return records where the 'tags' field is an array/list which does not contain specified value.
+
+Default value:
+
+ undef
+
+Can be specified multiple times.
+
+=item B<--tags-yaml>=I<s>
+
+Only return records where the 'tags' field equals specified value (YAML-encoded).
+
+See C<--tags>.
+
+=item B<--tags>=I<s>
+
+Only return records where the 'tags' field equals specified value.
+
+Default value:
+
+ undef
+
+=back
+
+=head2 Filtering-for-value options
+
+=over
+
+=item B<--value-contains>=I<s>
+
+Only return records where the 'value' field contains specified text.
+
+Default value:
+
+ undef
+
+=item B<--value-in-json>=I<s>
+
+Only return records where the 'value' field is in the specified values (JSON-encoded).
+
+See C<--value-in>.
+
+=item B<--value-in-yaml>=I<s>
+
+Only return records where the 'value' field is in the specified values (YAML-encoded).
+
+See C<--value-in>.
+
+=item B<--value-in>=I<s@>
+
+Only return records where the 'value' field is in the specified values.
+
+Default value:
+
+ undef
+
+Can be specified multiple times.
+
+=item B<--value-is>=I<s>
+
+Only return records where the 'value' field equals specified value.
+
+Default value:
+
+ undef
+
+=item B<--value-isnt>=I<s>
+
+Only return records where the 'value' field does not equal specified value.
+
+Default value:
+
+ undef
+
+=item B<--value-max>=I<s>
+
+Only return records where the 'value' field is less than or equal to specified value.
+
+Default value:
+
+ undef
+
+=item B<--value-min>=I<s>
+
+Only return records where the 'value' field is greater than or equal to specified value.
+
+Default value:
+
+ undef
+
+=item B<--value-not-contains>=I<s>
+
+Only return records where the 'value' field does not contain specified text.
+
+Default value:
+
+ undef
+
+=item B<--value-not-in-json>=I<s>
+
+Only return records where the 'value' field is not in the specified values (JSON-encoded).
+
+See C<--value-not-in>.
+
+=item B<--value-not-in-yaml>=I<s>
+
+Only return records where the 'value' field is not in the specified values (YAML-encoded).
+
+See C<--value-not-in>.
+
+=item B<--value-not-in>=I<s@>
+
+Only return records where the 'value' field is not in the specified values.
+
+Default value:
+
+ undef
+
+Can be specified multiple times.
+
+=item B<--value-xmax>=I<s>
+
+Only return records where the 'value' field is less than specified value.
+
+Default value:
+
+ undef
+
+=item B<--value-xmin>=I<s>
+
+Only return records where the 'value' field is greater than specified value.
+
+Default value:
+
+ undef
+
+=item B<--value>=I<s>
+
+Only return records where the 'value' field equals specified value.
+
+Default value:
+
+ undef
+
+=back
+
+=head2 General options
+
+=over
+
+=item B<--config-path>=I<s>
+
+Set path to configuration file.
+
+Can be specified multiple times.
+
+=item B<--config-profile>=I<s>
+
+Set configuration profile to use.
+
+=item B<--format-options>=I<s>
+
+Pass options to formatter.
+
+=item B<--format>=I<s>
+
+Choose output format, e.g. json, text.
+
+=item B<--help>, B<-h>, B<-?>
+
+Display this help message.
+
+=item B<--json>
+
+Equivalent to --format=json-pretty.
+
+=item B<--no-config>
+
+Do not use any configuration file.
+
+=item B<--perl>
+
+Equivalent to --format=perl.
+
+=item B<--version>, B<-v>
+
+Show version.
+
+=item B<--yaml>
+
+Equivalent to --format=yaml.
+
+=back
+
+=head2 Ordering options
+
+=over
+
+=item B<--sort>=I<s>
+
+Order records according to certain field(s).
+
+Default value:
+
+ undef
+
+A list of field names separated by comma. Each field can be prefixed with '-' to
+specify descending order instead of the default ascending.
+
+
+=back
+
+=head1 FILES
+
+B</etc/osnames.conf>
+
+B<~/osnames.conf>
+
+=head1 COMPLETION
+
+This script has shell tab completion capability with support for several shells.
+
+=head2 bash
+
+To activate bash completion for this script, put:
+
+ complete -C osnames osnames
+
+in your bash startup (e.g. C<~/.bashrc>). Your next shell session will then recognize tab completion for the command. Or, you can also directly execute the line above in your shell to activate immediately.
+
+It is recommended, however, that you install L<shcompgen> which allows you to activate completion scripts for several kinds of scripts on multiple shells. Some CPAN distributions (those that are built with L<Dist::Zilla::Plugin::GenShellCompletion>) will even automatically enable shell completion for their included scripts (using C<shcompgen>) at installation time, so you can immadiately have tab completion.
+
+=head2 tcsh
+
+To activate tcsh completion for this script, put:
+
+ complete osnames 'p/*/`osnames`/'
+
+in your tcsh startup (e.g. C<~/.tcshrc>). Your next shell session will then recognize tab completion for the command. Or, you can also directly execute the line above in your shell to activate immediately.
+
+It is also recommended to install C<shcompgen> (see above).
+
+=head2 other shells
+
+For fish and zsh, install C<shcompgen> as described above.
 
 =head1 HOMEPAGE
 
@@ -66,7 +583,7 @@ Please visit the project's homepage at L<https://metacpan.org/release/App-osname
 
 =head1 SOURCE
 
-Source repository is at L<https://github.com/sharyanto/perl-App-osnames>.
+Source repository is at L<https://github.com/perlancar/perl-App-osnames>.
 
 =head1 BUGS
 
@@ -78,11 +595,11 @@ feature.
 
 =head1 AUTHOR
 
-Steven Haryanto <stevenharyanto@gmail.com>
+perlancar <perlancar@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2014 by Steven Haryanto.
+This software is copyright (c) 2014 by perlancar@cpan.org.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

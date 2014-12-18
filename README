@@ -1,13 +1,13 @@
 NAME
-    App::osnames - List possible $^O ($OSNAME) values
+    App::osnames - List possible $^O ($OSNAME) values, with description
 
 VERSION
-    This document describes version 0.05 of App::osnames (from Perl
-    distribution App-osnames), released on 2014-08-16.
+    This document describes version 0.06 of App::osnames (from Perl
+    distribution App-osnames), released on 2014-12-18.
 
 FUNCTIONS
   list_osnames(%args) -> [status, msg, result, meta]
-    A collection of possible $^O ($OSNAME) values, along with description.
+    List possible $^O ($OSNAME) values, with description.
 
     Examples:
 
@@ -201,6 +201,28 @@ FUNCTIONS
 
      (any)
 
+TAGS
+    *   unix
+
+        Unix-like operating systems. This currently excludes beos/haiku.
+
+    *   bsd
+
+        BSD-derived Unix operating systems.
+
+    *   sysv
+
+        SysV-derived Unix operating systems.
+
+    *   posix
+
+        For POSIX-compliant OSes, including fully-, mostly-, and
+        largely-compliant ones (source:
+        <http://en.wikipedia.org/wiki/POSIX>).
+
+        From what I can gather, dec_osf is not POSIX compliant, although
+        there is a posix package for it.
+
 SEE ALSO
     perlvar
 
@@ -215,7 +237,7 @@ HOMEPAGE
     <https://metacpan.org/release/App-osnames>.
 
 SOURCE
-    Source repository is at <https://github.com/sharyanto/perl-App-osnames>.
+    Source repository is at <https://github.com/perlancar/perl-App-osnames>.
 
 BUGS
     Please report any bugs or feature requests on the bugtracker website
@@ -225,10 +247,10 @@ BUGS
     to an existing test-file that illustrates the bug or desired feature.
 
 AUTHOR
-    Steven Haryanto <stevenharyanto@gmail.com>
+    perlancar <perlancar@cpan.org>
 
 COPYRIGHT AND LICENSE
-    This software is copyright (c) 2014 by Steven Haryanto.
+    This software is copyright (c) 2014 by perlancar@cpan.org.
 
     This is free software; you can redistribute it and/or modify it under
     the same terms as the Perl 5 programming language system itself.

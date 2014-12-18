@@ -1,20 +1,21 @@
 package App::osnames;
 
+our $DATE = '2014-12-18'; # DATE
+our $VERSION = '0.06'; # VERSION
+
 use 5.010001;
 use strict;
 use warnings;
-
-our $VERSION = '0.05'; # VERSION
 
 our %SPEC;
 
 our $data = [
 
-    ['aix', [qw/unix sysv/], 'IBM AIX'],
-    ['beos', [qw//], 'See also: haiku'],
-    ['cygwin', [qw/unix/], ''],
+    ['aix', [qw/unix sysv posix/], 'IBM AIX'],
+    ['beos', [qw/posix/], 'See also: haiku'],
+    ['cygwin', [qw/unix posix/], ''],
 
-    ['darwin', [qw/unix bsd/],
+    ['darwin', [qw/unix bsd posix/],
 
      'Mac OS X. Does not currently (2013) include iOS because Perl has not been
      ported to that platform yet (but PerlMotion is being developed)',
@@ -22,18 +23,18 @@ our $data = [
  ],
 
     ['dec_osf', [qw//], 'DEC Alpha'],
-    ['dragonfly', [qw/unix bsd/], 'DragonFly BSD'],
-    ['freebsd', [qw/unix bsd/], ''],
-    ['gnukfreebsd', [qw/unix bsd/], 'Debian GNU/kFreeBSD'],
-    ['haiku', [qw//], 'See also: beos'],
-    ['hpux', [qw/unix sysv/], 'HP-UX'],
-    ['interix', [qw/unix/], ''],
-    ['irix', [qw/unix sysv/], ''],
-    ['linux', [qw/unix/], ''], # unix-like
+    ['dragonfly', [qw/unix bsd posix/], 'DragonFly BSD'],
+    ['freebsd', [qw/unix bsd posix/], ''],
+    ['gnukfreebsd', [qw/unix bsd posix/], 'Debian GNU/kFreeBSD'],
+    ['haiku', [qw/posix/], 'See also: beos'],
+    ['hpux', [qw/unix sysv posix/], 'HP-UX'],
+    ['interix', [qw/unix posix/], ''],
+    ['irix', [qw/unix sysv posix/], ''],
+    ['linux', [qw/unix posix/], ''], # unix-like
     ['MacOS', [qw//], 'Mac OS Classic (which predates Mac OS X)'],
-    ['midnightbsd', [qw/unix bsd/], ''],
-    ['minix', [qw/unix/], ''], # unix-like
-    ['mirbsd', [qw/unix bsd/], 'MirOS BSD'],
+    ['midnightbsd', [qw/unix bsd posix/], ''],
+    ['minix', [qw/unix posix/], ''], # unix-like
+    ['mirbsd', [qw/unix bsd posix/], 'MirOS BSD'],
 
     ['MSWin32', [qw//],
 
@@ -44,10 +45,10 @@ our $data = [
 
  ],
 
-    ['netbsd', [qw/unix bsd/], ''],
-    ['openbsd', [qw/unix bsd/], ''],
-    ['sco', [qw/unix sysv/], 'SCO UNIX'],
-    ['solaris', [qw/unix sysv/], 'This includes the old SunOS.'],
+    ['netbsd', [qw/unix bsd posix/], ''],
+    ['openbsd', [qw/unix bsd posix/], ''],
+    ['sco', [qw/unix sysv posix/], 'SCO UNIX'],
+    ['solaris', [qw/unix sysv posix/], 'This includes the old SunOS.'],
 
     # These OS-es are listed on CPAN Testers OS Leaderboards, but I couldn't
     # google any reports on them. So I couldn't peek the $Config{osname} value.
@@ -83,8 +84,7 @@ use Perinci::Sub::Gen::AccessTable qw(gen_read_table_func);
 
 my $res = gen_read_table_func(
     name       => 'list_osnames',
-    summary    => 'A collection of possible $^O ($OSNAME) values, '.
-        'along with description',
+    summary    => 'List possible $^O ($OSNAME) values, with description',
     description => <<'_',
 
 This list might be useful when coding, e.g. when you want to exclude or include
@@ -134,7 +134,7 @@ $SPEC{list_osnames}{examples} = [
 ];
 
 1;
-# ABSTRACT: List possible $^O ($OSNAME) values
+# ABSTRACT: List possible $^O ($OSNAME) values, with description
 
 __END__
 
@@ -144,18 +144,18 @@ __END__
 
 =head1 NAME
 
-App::osnames - List possible $^O ($OSNAME) values
+App::osnames - List possible $^O ($OSNAME) values, with description
 
 =head1 VERSION
 
-This document describes version 0.05 of App::osnames (from Perl distribution App-osnames), released on 2014-08-16.
+This document describes version 0.06 of App::osnames (from Perl distribution App-osnames), released on 2014-12-18.
 
 =head1 FUNCTIONS
 
 
 =head2 list_osnames(%args) -> [status, msg, result, meta]
 
-A collection of possible $^O ($OSNAME) values, along with description.
+List possible $^O ($OSNAME) values, with description.
 
 Examples:
 
@@ -336,6 +336,32 @@ that contains extra information.
 
  (any)
 
+=head1 TAGS
+
+=over
+
+=item * unix
+
+Unix-like operating systems. This currently excludes beos/haiku.
+
+=item * bsd
+
+BSD-derived Unix operating systems.
+
+=item * sysv
+
+SysV-derived Unix operating systems.
+
+=item * posix
+
+For POSIX-compliant OSes, including fully-, mostly-, and largely-compliant ones
+(source: L<http://en.wikipedia.org/wiki/POSIX>).
+
+From what I can gather, dec_osf is not POSIX compliant, although there is a
+posix package for it.
+
+=back
+
 =head1 SEE ALSO
 
 L<perlvar>
@@ -352,7 +378,7 @@ Please visit the project's homepage at L<https://metacpan.org/release/App-osname
 
 =head1 SOURCE
 
-Source repository is at L<https://github.com/sharyanto/perl-App-osnames>.
+Source repository is at L<https://github.com/perlancar/perl-App-osnames>.
 
 =head1 BUGS
 
@@ -364,11 +390,11 @@ feature.
 
 =head1 AUTHOR
 
-Steven Haryanto <stevenharyanto@gmail.com>
+perlancar <perlancar@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2014 by Steven Haryanto.
+This software is copyright (c) 2014 by perlancar@cpan.org.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
